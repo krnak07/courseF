@@ -24,7 +24,7 @@ module.exports.signup = function(req,res){
                             if(err){
                                 console.log(err);
                                 res
-                                    .json(err)
+                                    .json({"msg":"de"})
                             }
                             else {
                                 user.sendEmailVerification()
@@ -40,9 +40,18 @@ module.exports.signup = function(req,res){
                 });
         })
         .catch(function (error) {
-            console.log(error);
-            res
-                .json({"msg":"already"});
+            if(error.code == "auth/weak-password"){
+                res
+                    .json({"msg" : "wp"})
+            }
+            else if(error.code == "auth/email-already-in-use"){
+                res
+                    .json({"msg":"already"});
+            }
+            else if(error.code == "auth/invalid-email"){
+                res
+                    .json({"msg":"ie"});
+            }
         });
 
 
