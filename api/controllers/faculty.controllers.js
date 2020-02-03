@@ -1,23 +1,10 @@
 var mongoose = require('mongoose');
 var firebase = require('firebase');
-var profile = mongoose.model('profile');
-
-const firebaseConfig = {
-    apiKey: "AIzaSyB6SBZZqFKgFKQ4nAGTM9aLQM84vueN7ss",
-    authDomain: "coursereviewsystem.firebaseapp.com",
-    databaseURL: "https://coursereviewsystem.firebaseio.com",
-    projectId: "coursereviewsystem",
-    storageBucket: "coursereviewsystem.appspot.com",
-    messagingSenderId: "636522049586",
-    appId: "1:636522049586:web:c7076b57265da028278c2b",
-    measurementId: "G-7FZG2W9Q00"
-};
-
-var app = firebase.initializeApp(firebaseConfig);
+var faculty = mongoose.model('faculty');
 var auth = firebase.auth();
-var k = 1;
 
 module.exports.signup = function(req,res){
+
     auth.createUserWithEmailAndPassword(req.query.email, req.query.pass)
         .then(function () {
             auth.signInWithEmailAndPassword(req.query.email, req.query.pass)
@@ -26,14 +13,13 @@ module.exports.signup = function(req,res){
                     user.updateProfile({
                         displayName: req.query.name,
                     });
-                    profile
+                    faculty
                         .create({
                             name : req.query.name,
                             email : req.query.email,
                             password : req.query.pass,
                             phoneNo : req.query.phnnum,
                             department : req.query.dept,
-                            semester: req.query.sem
                         },function(err,pro) {
                             if(err){
                                 console.log(err);
@@ -62,26 +48,30 @@ module.exports.signup = function(req,res){
 
 };
 module.exports.login = function(req,res) {
+
     auth.signInWithEmailAndPassword(req.query.e_mail, req.query.pass)
         .then(function(){
             var user = auth.currentUser;
             if(user.emailVerified)
             {
-                profile
+                faculty
                     .findOne({name : user.displayName})
                     .exec(function(err,pro){
                         if(err){
                             res
-                                .json({"msg" : "de"});
-                        }
-                        if(pro == null){
-                            res
-                                .json({"msg" : "ns"});
+                                .json({"msg" :"de"});
                         }
                         else{
-                            res
-                                .json({"msg" : "v"});
+                            if(pro == null){
+                                res
+                                    .json({"msg" : "ns"});
+                            }
+                            else{
+                                res
+                                    .json({"msg" : "v"});
+                            }
                         }
+
                     });
 
             }
@@ -93,25 +83,7 @@ module.exports.login = function(req,res) {
         })
         .catch(function(error) {
             res
-                .json({"msg":"ae"});
+                .json({"msg" : "ae"});
         });
 
-};
-
-
-module.exports.passreset = function(req,res){
-    auth.sendPasswordResetEmail(req.query.e_mail)
-        .then(function() {
-        // Email sent.
-            res
-                .status(200)
-                .json({"Message" : "Email Sent"});
-
-    })
-        .catch(function(error) {
-        // An error happened.
-        res
-            .status(400)
-            .json(error)
-    });
 };

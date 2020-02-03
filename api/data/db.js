@@ -44,6 +44,7 @@ process.on('SIGTERM', function() {
 
 // BRING IN YOUR SCHEMAS & MODELS
 require('./profile.model');
+require('./faculty.model');
 
 
 
