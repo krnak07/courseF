@@ -2,15 +2,7 @@ var mongoose = require('mongoose');
 mongoose.set('useCreateIndex',true);
 
 var profileSchema = new mongoose.Schema({
-    firstname : {
-        type : String,
-        required : true
-    },
-    lastname : {
-        type : String,
-        required : true
-    },
-    dateofbirth : {
+    name : {
         type : String,
         required : true
     },
@@ -18,19 +10,15 @@ var profileSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    password : {
-        type : String,
-        required : true
-    },
-    RollNo : {
-      type : String,
-      required : true
-    },
     phoneNo : {
         type : Number,
         required : true
     },
-    address : {
+    department : {
+        type : String,
+        required : true
+    },
+    semester : {
         type : String,
         required : true
     },

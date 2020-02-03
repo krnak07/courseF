@@ -18,101 +18,73 @@ var auth = firebase.auth();
 var k = 1;
 
 module.exports.signup = function(req,res){
+    console.log(typeof(req.query.email));
 
-    profile
-        .findOne({RollNo : req.body.rollno})
-        .exec(function(err,pro){
-            if(err){
-                res
-                    .status(400)
-                    .json(err)
-            }
-            else
-            {
-                if(pro == null ){
-                    k = 0;
-                    auth.createUserWithEmailAndPassword(req.body.email, req.body.password)
-                        .then(function () {
-                            auth.signInWithEmailAndPassword(req.body.email, req.body.password)
-                                .then(function () {
-                                    var user = auth.currentUser;
-                                    console.log("User created : ",req.body.fname);
-                                    user.updateProfile({
-                                        displayName: req.body.rollno,
+    auth.createUserWithEmailAndPassword(req.query.email, req.query.pass)
+        .then(function () {
+            auth.signInWithEmailAndPassword(req.query.email, req.query.pass)
+                .then(function () {
+                    var user = auth.currentUser;
+                    user.updateProfile({
+                        displayName: req.query.name,
+                    });
+                    profile
+                        .create({
+                            name : req.query.name,
+                            email : req.query.email,
+                            password : req.query.pass,
+                            phoneNo : req.query.phnnum,
+                            department : req.query.dept,
+                            semester: req.query.sem
+                        },function(err,pro) {
+                            if(err){
+                                console.log(err);
+                                res
+                                    .json(err)
+                            }
+                            else {
+                                user.sendEmailVerification()
+                                    .then(function () {
+                                        res
+                                            .json({"msg" : "created"});
+                                        console.log("User created : ",req.query.name);
                                     });
-                                    profile
-                                        .create({
-                                            firstname : req.body.fname,
-                                            lastname : req.body.lname,
-                                            dateofbirth : req.body.dob,
-                                            email : req.body.email,
-                                            password : req.body.password,
-                                            phoneNo : req.body.phone,
-                                            address : req.body.addr,
-                                            RollNo: req.body.rollno
-                                        },function(err,pro) {
-                                            if(err){
-                                                res
-                                                    .status(400)
-                                                    .json(err)
-                                            }
-                                            else {
-                                                user.sendEmailVerification()
-                                                    .then(function () {
-                                                        res
-                                                            .status(200)
-                                                            .json(pro);
-                                                    });
 
-                                            }
-                                        });
-
-                                });
-                        })
-                        .catch(function (error) {
-                            res
-                                .status(400)
-                                .json(error);
+                            }
                         });
-                }
 
-                else
-                {
-                    res
-                        .status(200)
-                        .json({"Message": "User Already Exists"});
-                }
-
-            }
+                });
+        })
+        .catch(function (error) {
+            console.log(error);
+            res
+                .json({"msg":"already"});
         });
 
 
 };
 module.exports.login = function(req,res) {
-    auth.signInWithEmailAndPassword(req.body.email, req.body.password)
+    auth.signInWithEmailAndPassword(req.query.e_mail, req.query.pass)
         .then(function(){
             var user = auth.currentUser;
             if(user.emailVerified)
             {
                 profile
-                    .findOne({RollNo : user.displayName})
+                    .findOne({name : user.displayName})
                     .exec(function(err,pro){
                         if(err){
                             res
-                                .status(400)
                                 .json(err);
                         }
                         res
-                            .status(200)
-                            .json(pro); //logged in user details
+                            .json({"msg":"v"}); //logged in user details
                     });
 
             }
             else
             {
                 res
-                    .status(400)
-                    .json({"message" : "User not verified"});
+                    .json({"msg" : "nv"});
             }
         })
         .catch(function(error) {
@@ -125,7 +97,7 @@ module.exports.login = function(req,res) {
 
 
 module.exports.passreset = function(req,res){
-    auth.sendPasswordResetEmail(req.body.email)
+    auth.sendPasswordResetEmail(req.query.e_mail)
         .then(function() {
         // Email sent.
             res

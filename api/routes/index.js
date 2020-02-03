@@ -5,15 +5,15 @@ var ctrlprofile = require('../controllers/profile.controllers.js');
 
 router
     .route('/signup')
-    .post(ctrlprofile.signup);
+    .get(ctrlprofile.signup);
 
 router
     .route('/login')
-    .post(ctrlprofile.login);
+    .get(ctrlprofile.login);
 
 router
     .route('/passreset')
-    .post(ctrlprofile.passreset);
+    .get(ctrlprofile.passreset);
 
 
 module.exports = router;
