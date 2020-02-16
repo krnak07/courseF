@@ -4,7 +4,7 @@
   "description": "An for official corse review system",
   "main": "framework.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000"
   },
   "author": "sinisters",
   "license": "ISC",
@@ -14,9 +14,21 @@
     "firebase": "^7.5.0",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.16",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "save-dev": "0.0.1-security"
   },
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "firebase-mock": "^2.3.2",
+    "http-status": "^1.4.2",
+    "jest": "^25.1.0",
+    "mocha": "^6.2.2",
+    "should": "^13.2.3",
+    "sinon": "^8.1.1",
+    "sinon-as-promised": "^4.0.3",
+    "sinon-mongoose": "^2.3.0",
+    "supertest": "^4.0.2",
+    "supertest-as-promised": "^4.0.2"
   }
 }
