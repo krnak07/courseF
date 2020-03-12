@@ -30,10 +30,9 @@ module.exports.signup = function(req,res){
                         .create({
                             name : req.query.name,
                             email : req.query.email,
-                            password : req.query.pass,
                             phoneNo : req.query.phnnum,
-                            department : req.query.dept,
-                            semester: req.query.sem
+                            department : req.query.dept.toUpperCase(),
+                            semester: req.query.sem.toUpperCase()
                         },function(err,pro) {
                             if(err){
                                 console.log(err);
@@ -123,4 +122,21 @@ module.exports.passreset = function(req,res){
             .status(400)
             .json(error)
     });
+};
+
+module.exports.profileGetall = function(req,res){
+    profile
+        .find({})
+        .exec(function(err,pro){
+            if(err){
+                res
+                    .status(400)
+                    .json(err)
+            }
+            else{
+                res
+                    .status(200)
+                    .json(pro)
+            }
+        })
 };

@@ -45,6 +45,10 @@ process.on('SIGTERM', function() {
 // BRING IN YOUR SCHEMAS & MODELS
 require('./profile.model');
 require('./faculty.model');
+require('./course.model');
+require('./feedback.model');
+require('./emoticons.model');
+require('./feedbackDB.model');
 
 
 

@@ -96,3 +96,20 @@ module.exports.login = function(req,res) {
         });
 
 };
+
+module.exports.facultyGetall = function(req,res){
+    faculty
+        .find({})
+        .exec(function(err,pro){
+            if(err){
+                res
+                    .status(400)
+                    .json(err)
+            }
+            else{
+                res
+                    .status(200)
+                    .json(pro)
+            }
+        })
+};
