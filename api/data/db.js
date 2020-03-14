@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var dburl = 'mongodb://localhost:27017/course_review';
 var retry = null;
-mongoose.connect(dburl, { useNewUrlParser: true });
+mongoose.connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function() {
