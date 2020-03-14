@@ -49,6 +49,7 @@ require('./course.model');
 require('./feedback.model');
 require('./emoticons.model');
 require('./feedbackDB.model');
+require('./discussionforums.model');
 
 
 

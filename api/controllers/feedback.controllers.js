@@ -209,24 +209,6 @@ module.exports.getFeedback = function(req,res){
                 else{
                     res
                         .json(fb.answers)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
 
             }

@@ -6,6 +6,7 @@ var ctrlfaculty = require('../controllers/faculty.controllers.js');
 var ctrlcourse = require('../controllers/course.controller.js');
 var ctrlfeedback = require('../controllers/feedback.controllers.js');
 var ctrlemoticons = require('../controllers/emoticons.controllers.js');
+var ctrldiscussionForums = require('../controllers/discussionforums.controllers.js');
 
 router
     .route('/student/signup')
@@ -61,6 +62,18 @@ router
 router
     .route('/getfeedback')
     .get(ctrlfeedback.getFeedback);
+router
+    .route('/addquestion')
+    .get(ctrldiscussionForums.addQuestion);
+router
+    .route('/getquestion')
+    .get(ctrldiscussionForums.getQuestions);
+router
+    .route('/addanswer')
+    .get(ctrldiscussionForums.addAnswers);
+router
+    .route('/getanswer')
+    .get(ctrldiscussionForums.getAnswers);
 
 
 
