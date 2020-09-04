@@ -1,0 +1,20 @@
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request. 
+  push:
+    branches:
+      - master
+  pull_request:
+      types: [opened, synchronize, reopened]
+name: Main Workflow
+jobs:
+  AppInspector:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: microsoft/ApplicationInspector-Action@v1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: AppInspectorResults
+          path: AppInspectorResults.json
+     
