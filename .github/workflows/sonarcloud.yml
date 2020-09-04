@@ -1,4 +1,4 @@
-name: SYNK Test 
+name: SONAR Test 
 on: push
 jobs:
   security:
