@@ -1,0 +1,21 @@
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request. 
+  push:
+    branches:
+      - master
+  pull_request:
+      types: [opened, synchronize, reopened]
+name: Main Workflow
+jobs:
+  AppInspector:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DevSkim
+        uses: microsoft/DevSkim-Action@v1
+      - name: AppInspector
+        uses: microsoft/ApplicationInspector-Action@v1
+      
+
+
+     
