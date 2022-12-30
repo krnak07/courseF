@@ -23,7 +23,7 @@
     "firebase-mock": "^2.3.2",
     "http-status": "^1.4.2",
     "jest": "^25.1.0",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "should": "^13.2.3",
     "sinon": "^8.1.1",
     "sinon-as-promised": "^4.0.3",
